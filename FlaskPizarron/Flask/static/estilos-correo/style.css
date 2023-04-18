@@ -1,0 +1,134 @@
+body {
+	/* background: url(https://i.ibb.co/VQmtgjh/6845078.png) no-repeat; */
+	/* background-color: #330055; */
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%233a015d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23410165' cx='50' cy='100' r='50'/%3E%3Cg fill='%2348026e' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23500376' cx='50' cy='200' r='50'/%3E%3Cg fill='%2357047e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f0587' cx='50' cy='300' r='50'/%3E%3Cg fill='%2367068f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f0798' cx='50' cy='400' r='50'/%3E%3Cg fill='%237707a0' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%238008a9' cx='50' cy='500' r='50'/%3E%3Cg fill='%238909b1' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%239109ba' cx='50' cy='600' r='50'/%3E%3Cg fill='%239a09c3' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a309cb' cx='50' cy='700' r='50'/%3E%3Cg fill='%23ad09d4' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b608dc' cx='50' cy='800' r='50'/%3E%3Cg fill='%23c007e5' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c905ee' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d303f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+	background-attachment: fixed;
+	background-size: cover;
+	/* height: 100vh; */
+	font-family: sans-serif;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	/* display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-content: space-around; */
+}
+
+@media screen and (max-width: 600px) {
+	body {
+		/* background-size: cover; */
+		/* : fixed */
+		height: 10vh;
+	}
+}
+
+
+
+#particles-js {
+	height: 100%
+}
+
+.loginBox {
+	/* position: absolute; */
+	margin: auto;
+	/* transform: translate(-50%, -50%); */
+	width: 350px;
+	min-height: 200px;
+	background: #000000;
+	border-radius: 10px;
+	padding: 40px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center
+}
+
+.user {
+	margin: 0 auto;
+	display: block;
+	margin-bottom: 20px
+}
+
+h3 {
+	margin: 0;
+	padding: 0 0 20px;
+	color: #59238F;
+	text-align: center
+}
+
+.loginBox input {
+	width: 100%;
+	margin-bottom: 20px
+}
+
+.loginBox input[type="text"],
+.loginBox input[type="password"] {
+	border: none;
+	border-bottom: 2px solid #262626;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	background: transparent;
+	font-size: 16px;
+	padding-left: 20px;
+	box-sizing: border-box
+}
+
+.loginBox input[type="text"]:hover,
+.loginBox input[type="password"]:hover {
+	color: #42F3FA;
+	border: 1px solid #42F3FA;
+	box-shadow: 0 0 5px rgba(0, 255, 0, .3), 0 0 10px rgba(0, 255, 0, .2), 0 0 15px rgba(0, 255, 0, .1), 0 2px 0 black
+}
+
+.loginBox input[type="text"]:focus,
+.loginBox input[type="password"]:focus {
+	border-bottom: 2px solid #42F3FA
+}
+
+.inputBox {
+	position: relative
+}
+
+.inputBox span {
+	position: absolute;
+	top: 10px;
+	color: #262626
+}
+
+.loginBox input[type="submit"] {
+	border: none;
+	outline: none;
+	height: 40px;
+	font-size: 16px;
+	background: #59238F;
+	color: #fff;
+	border-radius: 20px;
+	cursor: pointer
+}
+
+.loginBox a {
+	color: #262626;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	display: block
+}
+
+a:hover {
+	color: #00ffff
+}
+
+p {
+	color: #0000ff
+}

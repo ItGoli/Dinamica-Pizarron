@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% include 'bootstrap5.html' %}
+    <title>Mapa 2</title>
+    <script>
+        // Función para permitir el arrastre de archivos
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // Función para manejar el archivo cuando se suelta en la pantalla
+        function handleDrop(event) {
+            event.preventDefault();
+            var file = event.dataTransfer.files[0];
+            var txtInput = document.getElementById("txtInput");
+            txtInput.files = file;
+        }
+    </script>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    {% include 'alertas.html' %}
+    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Mapa</h1>
+                <p class="lead">Desde aquí puedes personalizar tu propio Mapa.</p>
+                <p class="lead">Selecciona un archivo de texto (se crea en "<a href="/cuadricula">Cuadrícula</a>") y selecciona una imagen para ponerla de fondo en opaco mientras se van creando las imágenes.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- Formulario para subir el archivo de texto -->
+                <form action="{{ url_for('mapa2') }}" method="POST" enctype="multipart/form-data" ondrop="handleDrop(event)" ondragover="allowDrop(event)">
+                    <div class="mb-3">
+                        <label for="txtInput" class="form-label">Archivo .txt</label>
+                        <input class="form-control" type="file" id="txtInput" name="txtInput" accept=".txt">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Subir archivo</button>
+                    </div>
+                </form>
+                <hr>
+                <form id="myForm" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="txt" class="form-label">Archivo .txt</label>
+                        <select class="form-select" id="txt" name="txt" required>
+                            <option value="">Seleccionar archivo...</option>
+                            {% for file in files %}
+                            <option value="{{ file }}">{{ file }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label" >Imagen de fondo</label>
+                        <select class="form-select" id="imagen" name="imagen" required>
+                            <option value="">Seleccionar imagen...</option>
+                            {% for image in images %}
+                            <option value="{{ image }}" {% if img_path == url_for('static', filename='uploads/' + image) %}selected{% endif %}>{{ image }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('#myForm');
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const txt = document.querySelector('#txt').value;
+          const imagen = document.querySelector('#imagen').value;
+          window.location.href = `/composicion/mapa/${imagen}/${txt}`;
+        });
+      </script>
+</body>
+
+</html>

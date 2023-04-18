@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% include 'bootstrap5.html' %}
+  <title>Mapa</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    img {
+      width: 128px;
+      height: 72px;
+    }
+
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+{% if fondo %}
+  <body style="background-image: url({{ url_for('static', filename='img/' + fondo) }}); background-size: cover;background-repeat: no-repeat;">
+{% else %}
+  <body>
+{% endif %}
+  <!-- 15 filas  15 columnas-->
+
+  {% for imagen, posicion in posiciones.items() %}
+  <img src="{{ url_for('static', filename='img-mapa/' + imagen) }}"
+  style="position: absolute; top: {{ posicion.top }}px; left: {{ posicion.left }}px;">
+  {% endfor %}
+
+  <div>
+
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>

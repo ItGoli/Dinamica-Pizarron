@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include 'bootstrap5.html' %}
+  <title>Ladrillo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos-composicion/style.css' ) }}">
+  {% include 'sha256.html' %}
+
+  <style>
+    .last-image {
+      position: relative;
+      animation: move-image 2s linear;
+    }
+
+    .image {
+      width: 128px;
+      height: 72px;
+      overflow: hidden;
+      /* border: 10px solid transparent; */
+      /* border-image: url("data:image/png;base64,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") 30 30;
+      */
+      /*   https://i.stack.imgur.com/sjbeu.png   */
+    }
+
+    .vibracion {
+      animation: vibracion 0.3s ease-in-out infinite alternate;
+      width: 128px;
+      height: 72px;
+      overflow: hidden;
+    }
+
+    @keyframes vibracion {
+      0% {
+        transform: translate(0, 0) rotate(0);
+      }
+
+      25% {
+        transform: translate(-2px, 2px) rotate(-2deg);
+      }
+
+      50% {
+        transform: translate(0, 0) rotate(0);
+      }
+
+      75% {
+        transform: translate(2px, -2px) rotate(2deg);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(0);
+      }
+    }
+
+    @keyframes move-image {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotate(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: 200px;
+        transform: rotate(180deg);
+      }
+
+      50% {
+        top: 400px;
+        left: 400px;
+        transform: rotate(360deg);
+      }
+
+      75% {
+        top: 200px;
+        left: 200px;
+        transform: rotate(180deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotate(0deg);
+      }
+    }
+
+    .animacion-izquierda {
+      animation: spiral-image-izquierda 3s linear infinite;
+    }
+
+    .animacion-derecha {
+      animation: spiral-image-derecha 3s linear infinite;
+    }
+
+    @keyframes spiral-image-izquierda {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(90deg) rotateY(90deg);
+      }
+
+      50% {
+        top: 400px;
+        left: 400px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      75% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(270deg) rotateY(270deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
+
+    @keyframes spiral-image-derecha {
+      0% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+
+      50% {
+        transform: rotate(1080deg) translateX(-200px) translateY(-200px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+    }
+
+
+    .animacion-zoom {
+      animation: last-image-zoom 2s linear infinite;
+    }
+
+    .animacion-swing {
+      animation: last-image-swing 1s linear infinite;
+    }
+
+    .animacion-perspectiva-izquierda-arriba {
+      animation: last-image-perspectiva 8s linear infinite;
+    }
+
+    .animacion-perspectiva-derecha-abajo {
+      animation: last-image-perspectiva-abajo-derecha 8s linear infinite;
+    }
+
+    .animacion-perspectiva-izquierda-abajo {
+      animation: last-image-perspectiva-abajo-izquierda 8s linear infinite;
+    }
+
+    .animacion-perspectiva-derecha-arriba {
+      animation: last-image-perspectiva-arriba-derecha 8s linear infinite;
+    }
+
+
+    .animacion-derecha {
+      animation: spiral-image-derecha 3s linear infinite;
+    }
+
+    .animacion-izquierda {
+      animation: spiral-image-izquierda 3s linear infinite;
+    }
+
+
+    @keyframes spiral-image-derecha {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      50% {
+        top: 400px;
+        left: 400px;
+        transform: rotateX(90deg) rotateY(90deg);
+      }
+
+      75% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+    @keyframes spiral-image-izquierda {
+      0% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+
+      50% {
+        transform: rotate(1080deg) translateX(-200px) translateY(-200px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+    }
+
+    #last-image-swing {
+      position: absolute;
+      animation: last-image-swing 2s ease-in-out infinite;
+    }
+
+    @keyframes last-image-swing {
+      0% {
+        transform: rotate(0deg) translateX(0);
+      }
+
+      25% {
+        transform: rotate(20deg) translateX(20px);
+      }
+
+      50% {
+        transform: rotate(0deg) translateX(40px);
+      }
+
+      75% {
+        transform: rotate(-20deg) translateX(20px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateX(0);
+      }
+    }
+
+    #last-image-espiral {
+      position: absolute;
+      animation: spiral-image-espiral 3s linear infinite;
+    }
+
+    @keyframes spiral-image-espiral {
+      0% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+
+      50% {
+        transform: rotate(1080deg) translateX(200px) translateY(200px);
+      }
+
+      100% {
+        transform: rotate(0deg) translateX(0px) translateY(0px);
+      }
+    }
+
+    #last-image-zoom {
+      position: absolute;
+      animation: last-image-zoom 2s linear infinite;
+    }
+
+    @keyframes last-image-zoom {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(2);
+      }
+
+      50% {
+        transform: scale(3);
+      }
+
+      75% {
+        transform: scale(2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .animacion-body {
+      position: absolute;
+      animation: animacion-body 3s linear forwards;
+      z-index: -1;
+    }
+
+    @keyframes animacion-body {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      25% {
+        opacity: 1;
+        transform: scale(0.75);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(0.2);
+      }
+
+      75% {
+        opacity: 1;
+        transform: scale(0.25);
+      }
+
+      85% {
+        opacity: 1;
+        transform: scale(0.25);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(0.25);
+        z-index: -40;
+      }
+    }
+
+    .animacion-tibu {
+      position: absolute;
+      animation: animacion-tibu 4s linear forwards;
+    }
+
+    @keyframes animacion-tibu {
+      0% {
+        top: 300px;
+        left: 4080px;
+        transform: scale(2.5);
+      }
+
+      100% {
+        top: 300px;
+        left: -400px;
+      }
+    }
+
+    .animacion-body-nuevo {
+      position: absolute;
+      animation: animacion-body-nuevo 4s linear forwards;
+    }
+
+    @keyframes animacion-body-nuevo {
+      0% {
+        top: 3840px;
+        left: 4080px;
+        transform: scale(2.5);
+      }
+
+      100% {
+        top: 0px;
+        left: 0px;
+      }
+    }
+
+    #last-image-perspectiva {
+      position: relative;
+      animation: last-image-perspectiva 2s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes last-image-perspectiva {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      50% {
+        top: 400px;
+        left: 400px;
+        transform: rotateX(90deg) rotateY(90deg);
+      }
+
+      75% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+    #last-image-perspectiva-abajo-derecha {
+      position: relative;
+      animation: last-image-perspectiva-abajo-derecha 2s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes last-image-perspectiva-abajo-derecha {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: -200px;
+        left: -200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      50% {
+        top: -400px;
+        left: -400px;
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+
+      75% {
+        top: -200px;
+        left: -200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+
+    #last-image-perspectiva-abajo-izquierda {
+      position: relative;
+      animation: last-image-perspectiva-abajo-izquierda 2s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes last-image-perspectiva-abajo-izquierda {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: -200px;
+        left: 200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      50% {
+        top: -400px;
+        left: 400px;
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+
+      75% {
+        top: -200px;
+        left: 200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+    #last-image-perspectiva-arriba-derecha {
+      position: relative;
+      animation: last-image-perspectiva-arriba-derecha 2s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes last-image-perspectiva-arriba-derecha {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: -200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      50% {
+        top: 400px;
+        left: -400px;
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+
+      75% {
+        top: 200px;
+        left: -200px;
+        transform: rotateX(180deg) rotateY(180deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+
+    #last-image-rotacion {
+      position: relative;
+      animation: last-image-rotacion 3s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes last-image-rotacion {
+      0% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+
+      25% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(180deg) rotateY(0deg);
+      }
+
+      50% {
+        top: 400px;
+        left: 400px;
+        transform: rotateX(360deg) rotateY(0deg);
+      }
+
+      75% {
+        top: 200px;
+        left: 200px;
+        transform: rotateX(180deg) rotateY(0deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+    }
+
+
+    #image-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+      grid-auto-rows: 102px;
+      grid-gap: 10px;
+      margin-left: 20px;
+    }
+
+    .image-wrapper {
+      width: 148px;
+      height: 72px;
+      overflow: hidden;
+      /*   https://i.stack.imgur.com/sjbeu.png   */
+    }
+
+    .image-wrapper img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+
+
+    .container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      background-color: #f0f0f0;
+    }
+
+    #animacion {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    h1 {
+      color: white;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding-top: 30px;
+      font-size: xxx-large;
+    }
+
+    .par {
+      display: flex;
+      margin-left: 96px;
+    }
+
+    .impar {
+      display: flex;
+      margin-left: 32px;
+    }
+  </style>
+
+  <!-- <script>
+        setInterval(function(){
+            location.reload();
+          }, 5000);
+      </script> -->
+
+
+</head>
+
+<body style="background-color: #60c0ff;z-index:0">
+  <div>
+    <img class="animacion-tibu" src="https://i.ibb.co/HtDX3md/tibugif.gif" alt="">
+  </div>
+  <div class="area animacion-body" id="area">
+    <div>
+      <h1>Collage Pizarra</h1>
+
+      <!-- <div id="image-container"> -->
+      {% set images_per_row = 14 %}
+      {% set rows = image_names|batch(images_per_row)|list %}
+      {% set last_image = image_names[-1] %}
+
+      {% for row in rows %}
+      <div {% if loop.index is even %}class="par" {% else %}class="impar" {% endif %}>
+        {% for image_name in row %}
+        <img src="{{ url_for('static', filename='carpeta-img-1/' + image_name) }}" alt="{{ image_name }}"
+          class="vibracion {% if loop.last and image_name == last_image %}image  animate{% else %}image{% endif %}"
+          data-bs-toggle="modal" data-bs-target="#exampleModal{{ loop.index }}_{{ loop.index0 }}">
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{ loop.index }}_{{ loop.index0 }}" tabindex="-1"
+          aria-labelledby="exampleModalLabel{{ loop.index }}_{{ loop.index0 }}" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ loop.index }}_{{ loop.index0 }}">Administración de
+                  Imágenes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img class="tam" src="{{ url_for('static', filename='carpeta-img-1/' + image_name) }}"
+                  alt="{{ image_name }}" style="display: flex; justify-content: center; width: 466px; height: 300px;">
+                <br>
+                <button class="btn btn-primary"
+                  onclick="openImage('{{ url_for('static', filename='carpeta-img-1/' + image_name) }}')">Ver imagen en
+                  grande</button>
+                <button type="button" class="btn btn-danger" id="borrar-imagen"
+                  onclick="deleteImage('{{ image_name }}')">Borrar</button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+
+
+
+
+
+      <!-- Maximo x = 1760 en fila con 96px -->
+      <!-- Maximo y = 980 -->
+      <!-- Maximo de 14 img por fila -->
+      <!-- Maximo de 13 filas -->
+      <!-- Total: 182 img -->
+
+    </div>
+    <script>
+      const miElemento = document.querySelector('#area');
+
+      miElemento.addEventListener('animationend', () => {
+        miElemento.classList.remove('animacion-body');
+        const imagenes = document.querySelectorAll('.vibracion');
+        imagenes.forEach((imagen) => {
+          imagen.classList.remove('vibracion');
+        });
+        miElemento.classList.add('animacion-body-nuevo');
+
+imagenes.forEach((img) => {
+  img.remove();
+});
+        // Obtener el h1 y actualizar su contenido
+const titulo = document.querySelector('h1');
+titulo.textContent = 'Collage Pizarra 2';
+      });
+
+    </script>
+    <!-- <script>
+      const canvas = document.createElement('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
+
+      const ctx = canvas.getContext('2d');
+
+      // Dibujar el borde
+      ctx.lineWidth = 10;
+      ctx.strokeRect(300, 200, window.innerWidth - 600, window.innerHeight - 400);
+
+
+      // Obtener el elemento last-image por su clase
+      const lastImage = document.querySelector('.last-image');
+
+      // Obtener la posición X e Y del elemento en relación con el documento
+      const x = lastImage.offsetLeft;
+      const y = lastImage.offsetTop;
+
+      const anchoPantalla = screen.width
+      const altoPantalla = screen.height
+
+      console.log('Pantalla= ' + anchoPantalla + 'x' + altoPantalla)
+
+      let posicion = "perspectiva-"
+
+      // Array de strings aleatorios
+      var strings = ["zoom", "swing", "perspectiva", "espiral"];
+
+      // Generar un número aleatorio entre 0 y el número de elementos en el array
+      var randomIndex = Math.floor(Math.random() * strings.length);
+
+      // Obtener el elemento aleatorio del array
+      var randomString = strings[randomIndex];
+
+      // Imprimir el string aleatorio
+      console.log(randomString);
+
+
+      console.log(window.innerWidth / 2);
+      console.log(window.innerHeight / 2);
+
+      if (x < window.innerWidth / 2) {
+        console.log("izquierda")
+        posicion += 'izquierda-'
+        if (y < window.innerHeight / 2) {
+          console.log("arriba")
+          posicion += 'arriba'
+          lastImage.classList.add("animacion-" + posicion);
+          console.log(posicion)
+        } else {
+          console.log("abajo")
+          posicion += 'abajo'
+          lastImage.classList.add("animacion-" + posicion);
+          console.log(posicion)
+        }
+      } else {
+        console.log("derecha")
+        posicion += 'derecha-'
+        if (y < window.innerHeight / 2) {
+          console.log("arriba")
+          posicion += 'arriba'
+          lastImage.classList.add("animacion-" + posicion);
+          console.log(posicion)
+        } else {
+          console.log("abajo")
+          posicion += 'abajo'
+          lastImage.classList.add("animacion-" + posicion);
+          console.log(posicion)
+        }
+      }
+
+      console.log(`Posición X: ${x}, Posición Y: ${y}`);
+
+    </script> -->
+
+</body>
+
+</html>

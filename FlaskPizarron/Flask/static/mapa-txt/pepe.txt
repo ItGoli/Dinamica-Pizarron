@@ -1,0 +1,1 @@
+{"imagen-001.png":{"top":0,"left":0},"imagen-002.png":{"top":72,"left":128},"imagen-003.png":{"top":144,"left":256},"imagen-004.png":{"top":216,"left":384},"imagen-005.png":{"top":288,"left":512}}

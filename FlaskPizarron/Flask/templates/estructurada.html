@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% include 'bootstrap5.html' %}
+    <title>Estructura {{columna}}x{{fila}}</title>
+    <style>
+        .imagenes-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            grid-gap: 0px;
+          }
+          
+          .imagenes-grid div {
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+          }
+          
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- Título -->
+        <div class="row align-items-center" style="max-height: 216px; margin-bottom: 35px;margin-top: 35px;">
+            <div class="col">
+                <h1 style="font-size: 3rem; margin: 0px;display:flex;justify-content: center;">Título</h1>
+            </div>
+        </div>
+
+        <!-- Imagen grande -->
+        <div style="display:flex;">
+            <div style="flex: 0 0 auto;
+            width: 256px;
+            margin-right: 64px;">
+                <img src="https://via.placeholder.com/256x864" class="img-fluid mx-auto d-block"
+                    style="max-width: 256px; max-height: 864px;">
+            </div>
+
+            <!-- Conjunto de imágenes -->
+            <div class="imagenes-grid">
+  <!-- Repetir 12 veces por fila -->
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+  <div><img src="https://via.placeholder.com/128x72" class="img-fluid"></div>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

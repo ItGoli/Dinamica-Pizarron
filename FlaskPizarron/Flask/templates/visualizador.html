@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% include 'bootstrap5.html' %}
+    <title>Subir archivos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #fff;
+            /*Fondo blanco*/
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 60%;
+            /*Disminuir el ancho al 80%*/
+            height: 28%;
+            /*Ajuste automático de altura*/
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }
+
+        h1 {
+            font-size: clamp(24px, calc(6vw + .5rem), calc(50px + .7rem));
+            color: #480a47;
+            /*Color predominante */
+            margin-bottom: 20px;
+        }
+
+
+        input[type='file'] {
+            display: none;
+
+        }
+
+        label[for='imageFile'] {
+            background-color: #480a47;
+            /*Color Predominante*/
+            color: white;
+            /*Let*/
+            border-radius: 10 px;
+            /*Bordes redondeados*/
+            padding: 15 px;
+            color: #7D4087;
+            /*Agregar un buen espacio para clickear*/
+
+            cursor: pointer;
+            margin-bottom: auto;
+
+        }
+
+        label[for='imageFile']:hover {
+            background-color: #7D4087;
+            /*Color Predominante */
+            color: #480a47;
+            /*Letras Oscuras*/
+        }
+
+
+
+        .botones {
+
+            display: flex;
+            flex-direction: center-column;
+
+            justify-content: center;
+            align-items: center;
+
+
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        #preview-image {
+            width: 128px;
+            height: 72px;
+            margin-bottom: 25px;
+        }
+
+        .modal-container {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            /*Ubicado por encima del resto*/
+            left: 50%;
+            top: 50%;
+        }
+
+        .modal-box {
+            position: relative;
+            width: 520px;
+            ;
+        }
+
+        .galeria-img {
+            margin-right: 10px;
+            margin-bottom: 10px;
+
+        }
+
+        .close {
+            float: right;
+
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    {% include 'alertas.html' %}
+
+    <div class="container">
+        <!-- Titulo -->
+        <h1 class="text-center">Subir archivos</h1>
+        <div>
+            <img id="preview-image" style="display:none;">
+        </div>
+
+        <!-- Formulario -->
+        <form action="{{ url_for('visualizador') }}" method="POST" enctype="multipart/form-data">
+            <!-- Input para seleccionar archivo a subir-->
+            <div class='row justify-content-center'>
+                <div class='col-12 col-md-4'>
+                    <label for='imageFile' class='btn botones '>Seleccionar imagen</label>
+
+                    <button type="button" class="btn btn-secondary mb-2" onclick="window.location.href='/galeria'"
+                        style="margin-top: 25px;">Ver galería</button>
+
+
+                    <div class="modal-container">
+                        <div class="modal-box">
+                            <span class="close">&times;</span>
+                            <div class="galeria"></div>
+                        </div>
+                    </div>
+                    <!-- El input que contiene la imagen será oculto y se activará al clickear el label-->
+                    <input type="file" id="imageFile" name="photo" accept="image/*">
+                </div>
+            </div>
+            <!-- Botón para enviar formulario-->
+            <button type="submit" class='btn btn-primary text-center mt-lg-3 mt-md-2  mt-sm-n1'>Cambiar imagen
+                de fondo</button>
+            <!--Termina contenedor formularios   -->
+        </form>
+        <script>
+            $(document).ready(function () {
+                $('#imageFile').change(function (event) {
+                    var selectedImage = event.target.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        $('#preview-image').attr('src', event.target.result);
+                        $('#preview-image').show();
+                    }
+
+                    reader.readAsDataURL(selectedImage);
+                });
+            });
+        </script>
+        <script>
+//            window.setTimeout(function() {
+//                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+//                    $(this).remove();
+//                });
+//              }, 3000);
+              
+        </script>
+</body>
+
+</html>

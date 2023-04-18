@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% include 'bootstrap5.html' %}
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        #canvas {
+            /* se resta la altura de los botones */
+            /* border-radius: 100px; */
+            /*background-color: #AD4DA8; */
+            background-image: url("../static/images/pizarra.jpg");
+            border: 60px solid transparent;
+            border-image:url("https://img.freepik.com/vector-premium/pizarra-marco_268357-27.jpg")
+             20 20 ;
+            background-repeat: no-repeat;
+            background-size:cover;
+            margin-top: 50px;
+            cursor: crosshair;
+        }
+
+        #botones {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        #botones:last-child {
+            margin-right: 0px;
+        }
+
+        button {
+            margin-right: 30px;
+            border: none;
+            width: 120px;
+
+        }
+
+        .morado{
+            /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%233a015d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23410165' cx='50' cy='100' r='50'/%3E%3Cg fill='%2348026e' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23500376' cx='50' cy='200' r='50'/%3E%3Cg fill='%2357047e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f0587' cx='50' cy='300' r='50'/%3E%3Cg fill='%2367068f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f0798' cx='50' cy='400' r='50'/%3E%3Cg fill='%237707a0' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%238008a9' cx='50' cy='500' r='50'/%3E%3Cg fill='%238909b1' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%239109ba' cx='50' cy='600' r='50'/%3E%3Cg fill='%239a09c3' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a309cb' cx='50' cy='700' r='50'/%3E%3Cg fill='%23ad09d4' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b608dc' cx='50' cy='800' r='50'/%3E%3Cg fill='%23c007e5' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c905ee' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d303f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+          */
+            
+            background-image: url("../static/images/fondo3.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+
+        .transparente {
+            background-color: transparent;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        img{
+            width: 108px;
+        }
+
+        .nocursor {
+            cursor: none;
+        }
+        
+    </style>
+</head>
+
+<body class="morado">
+
+    <canvas id="canvas"></canvas>
+    <div id="botones">
+        <button type="button" class="transparente" id="limpiar"> <img src="../static/images/broom.svg" alt="Limpiar"  > </button>
+        <button type="button" class="transparente" id="undo">    <img src="../static/images/undo.svg"  alt="Deshacer"  ></button>
+        <button type="button" class="transparente" id="redo">    <img src="../static/images/redo.svg"  alt="Rehacer"   ></button>
+        <button type="button" class="transparente" id="guardar"> <img src="../static/images/fin.svg"   alt="deshacer"  ></button>
+        <button type="button" class="transparente" style="color: white;">
+            <a href="/correo" style="text-decoration: none; color: inherit;">Ir a la segunda página</a>
+          </button>
+    </div>
+
+    <script>
+//Guardar el elemento y el context
+const mainCanvas = document.getElementById("canvas");
+const context = mainCanvas.getContext("2d");
+
+mainCanvas.width = (window.innerWidth/16)*9;
+mainCanvas.height = window.innerHeight - window.innerHeight/3;
+
+let initialX;
+let initialY;
+
+const paths = [];
+let isDrawing = false;
+let shouldRedraw = false;
+let undoHistory = [];
+
+const dibujar = (cursorX, cursorY) => {
+  if (!isDrawing) {
+    return;
+  }
+
+  context.beginPath();
+  context.moveTo(initialX, initialY);
+  context.lineWidth = 5;
+  context.strokeStyle = "white";
+  context.lineCap = "round";
+  context.lineJoin = "round";
+  context.lineTo(cursorX, cursorY);
+  context.stroke();
+
+  initialX = cursorX;
+  initialY = cursorY;
+};
+
+const startDrawing = (evt) => {
+  initialX = evt.offsetX;
+  initialY = evt.offsetY;
+  isDrawing = true;
+  shouldRedraw = false;
+};
+
+const stopDrawing = () => {
+  isDrawing = false;
+  if (!shouldRedraw) {
+    paths.push(context.getImageData(0, 0, mainCanvas.width, mainCanvas.height));
+    undoHistory = [];
+  }
+};
+
+const mouseMoving = (evt) => {
+  dibujar(evt.offsetX, evt.offsetY);
+};
+
+const undo = () => {
+  if (paths.length > 1) {
+    shouldRedraw = true;
+    undoHistory.push(paths.pop());
+    context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+    context.putImageData(paths[paths.length - 1], 0, 0);
+  } else if (paths.length === 1) {
+    shouldRedraw = true;
+    undoHistory.push(paths.pop());
+    context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+  }
+};
+
+const redo = () => {
+  if (undoHistory.length > 0) {
+    shouldRedraw = true;
+    paths.push(undoHistory.pop());
+    context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+    context.putImageData(paths[paths.length - 1], 0, 0);
+  }
+};
+
+const drawPoint = (evt) => {
+    context.beginPath();
+    context.arc(evt.offsetX, evt.offsetY, 2, 0, 2 * Math.PI);
+    context.fillStyle = "white";
+    context.fill();
+  };
+
+mainCanvas.addEventListener("mousedown", startDrawing);
+mainCanvas.addEventListener("mousemove", mouseMoving);
+mainCanvas.addEventListener("mouseup", stopDrawing);
+
+mainCanvas.addEventListener("click", drawPoint);
+
+document.querySelector("#limpiar").addEventListener("click", () => {
+  paths.length = 0;
+  undoHistory.length = 0;
+  context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+});
+
+document.querySelector("#undo").addEventListener("click", undo);
+document.querySelector("#redo").addEventListener("click", redo);
+
+
+
+
+        document.querySelector("#guardar").addEventListener("click", () => {
+            var imagenBase64 = mainCanvas.toDataURL();
+            $.ajax({
+                url: '/guardar_imagen',
+                type: 'POST',
+                data: { data: imagenBase64 },
+                success: function (respuesta) {
+                    alert(respuesta);
+                },
+                error: function () {
+                    alert('Se produjo un error al guardar la imagen.');
+                }
+            });
+        });
+
+        // Escuchar cambios en el tamaño de la ventana del navegador y ajustar el tamaño del canvas
+        window.addEventListener('resize', function () {
+            mainCanvas.width = (window.innerWidth/16)*9;
+            mainCanvas.height = window.innerHeight - window.innerHeight/3;
+            // Luego de ajustar las dimensiones del canvas, también debes volver a dibujar cualquier cosa que esté en él
+            // ...
+        }, false);
+
+    </script>
+</body>
+
+</html>

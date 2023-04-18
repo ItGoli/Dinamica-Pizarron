@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include 'bootstrap5.html' %}
+  
+  {% if filename %}
+  <title> Cuadricula {{ filename.split('.')[0] }}</title>
+{% else %}
+  <title>Cuadricula</title>
+{% endif %}
+
+  <style>
+    .floating-button {
+      width: 128px;
+      height: 72px;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      padding: 12px 24px;
+      cursor: pointer;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .floating-button:hover {
+      background-color: #3e8e41;
+      box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .boton {
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+{% if filename %}
+  <body style="background-image: url({{ url_for('static', filename='img/' + filename) }}); background-size: cover;background-repeat: no-repeat;">
+{% else %}
+  <body>
+{% endif %}
+
+  {% for i in range(15) %}
+  {% for j in range(15) %}
+  <button class="boton" id="{{ '{:02d}'.format(i*15+j+1) }}" name="imagen-{{ '{:02d}'.format(i*15+j+1) }}"
+    onclick="mostrarPosicion(this)"
+    style="position: absolute; top: {{ i*72 }}px; left: {{ j*128 }}px; width: 128px; height: 72px;">boton-{{
+    '{:02d}'.format(i*15+j+1) }}</button>
+  {% endfor %}
+  {% endfor %}
+  <div>
+    <button class="floating-button" onclick="enviarBotonesSeleccionados()">Aceptar</button>
+  </div>
+
+  <script>
+    const buttons = document.getElementsByTagName("button");
+
+    // Recorre los elementos (botones)
+    Array.from(buttons).forEach(function (button) {
+
+      let isPressed = false;
+
+      button.addEventListener('click', function () {
+        if (isPressed) {
+          // Si el estado es "presionado", establece color por defecto
+          button.style.backgroundColor = 'transparent';
+        } else {
+          // Si no, establece un nuevo color diferente 
+          button.style.backgroundColor = 'rgba(125,064,135,0.5)'; // Cambia el color de fondo del botón activo a rojo y un poco opaco (edite "0.5" según lo desee)
+        }
+
+        // Cambia el estado del boton 
+        isPressed = !isPressed;
+      });
+    });
+  </script>
+
+  <script>
+    var botonesSeleccionados = [];
+    var contador = 1; // Inicializa el contador en 1
+    
+    function mostrarPosicion(boton) {
+      var top = boton.offsetTop;
+      var left = boton.offsetLeft;
+      var nombre = "imagen-" + pad(contador, 3) + ".png"; // Usa la función pad para formatear el número del contador
+      
+      if (boton.classList.contains('active')) { // Verifica si el botón está actualmente activo
+        boton.classList.remove('active'); // Si es así, remueve su clase 'active'
+  
+        for(var i=0; i<botonesSeleccionados.length; i++) {
+          if(botonesSeleccionados[i].nombre === nombre) { // Busca este botón específico dentro del arreglo
+            botonesSeleccionados.splice(i,1); // Y elimina su información del arreglo.
+            break;
+          }
+        }
+  
+      } else {
+      
+        if(botonesSeleccionados.indexOf(nombre)==-1){  // agrega un chequeo para saber si ya se ha agregado al arrelo 
+  
+          boton.classList.add('active');
+          botonesSeleccionados.push({ nombre: nombre, top: top, left: left });
+          contador++; // Incrementa el contador después de agregar la información del botón seleccionado
+        }
+      }
+      console.log("Botones seleccionados:", botonesSeleccionados);
+    }
+  
+    function pad(num, size) { // Función para agregar ceros a la izquierda de un número
+      var s = "000000000" + num;
+      return s.substr(s.length-size);
+    }
+  
+    function enviarBotonesSeleccionados() {
+      var output = {};
+      for (var i=0;i<botonesSeleccionados.length;i++){
+        var btnData = botonesSeleccionados[i];
+        output[btnData.nombre]={'top': btnData.top, 'left': btnData.left};
+      }
+  
+      // preguntar al usuario por un nuevo nombre de archivo
+      var fileName = window.prompt("Introduzca un nombre de archivo", "plantilla");
+  
+       //si presiona cancelar o no escribe nada se sale
+       if(fileName == null || fileName.trim()=="") return; 
+  
+       // Actualiza solo si ha proporcionado algún input conservando defaults:
+       if(typeof(fileName)=="string"){
+         fileName =fileName.replace(".txt", "")+".txt";
+         console.log(`Nuevo Nombre: ${fileName}`);
+         const blob = new Blob([JSON.stringify(output)], { type: "text/plain;charset=utf-8" });
+        
+          // crea url para descargar
+          const downloadUrl = URL.createObjectURL(blob);
+  
+          // vincula la url al elemento <a>
+          const linkElement = document.createElement('a');
+          linkElement.href = downloadUrl;
+  
+           // Asigna el nombre del archivo proporcionado por el usuario:
+          linkElement.download = fileName;
+  
+         // simula el click para iniciar la descarga:
+         linkElement.click(); 
+       }
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const button = document.querySelector('.floating-button');
+      let dragging = false;
+      let offsetX, offsetY;
+
+      button.addEventListener('mousedown', (e) => {
+        dragging = true;
+        offsetX = e.clientX - button.getBoundingClientRect().left;
+        offsetY = e.clientY - button.getBoundingClientRect().top;
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        button.style.left = (e.clientX - offsetX) + 'px';
+        button.style.top = (e.clientY - offsetY) + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        snapToCorner(button);
+      });
+
+      function snapToCorner(button) {
+        const rect = button.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        if (centerX < windowWidth / 2 && centerY < windowHeight / 2) {
+          button.style.left = '20px';
+          button.style.top = '20px';
+        } else if (centerX >= windowWidth / 2 && centerY < windowHeight / 2) {
+          button.style.left = (windowWidth - rect.width - 20) + 'px';
+          button.style.top = '20px';
+        } else if (centerX < windowWidth / 2 && centerY >= windowHeight / 2) {
+          button.style.left = '20px';
+          button.style.top = (windowHeight - rect.height - 20) + 'px';
+        } else {
+          button.style.left = (windowWidth - rect.width - 20) + 'px';
+          button.style.top = (windowHeight - rect.height - 20) + 'px';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

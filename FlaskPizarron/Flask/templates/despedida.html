@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% include 'bootstrap5.html' %}
+    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Open+Sans&family=Roboto:wght@100;300&display=swap"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='estilos-correo/style.css' ) }}"> -->
+    <title>Despedida</title>
+    <style>
+        #container {
+            opacity: 0;
+            /* Establecer la opacidad en 0 para ocultar el contenido */
+        }
+
+        body {
+            /*
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%233a015d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23410165' cx='50' cy='100' r='50'/%3E%3Cg fill='%2348026e' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23500376' cx='50' cy='200' r='50'/%3E%3Cg fill='%2357047e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f0587' cx='50' cy='300' r='50'/%3E%3Cg fill='%2367068f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f0798' cx='50' cy='400' r='50'/%3E%3Cg fill='%237707a0' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%238008a9' cx='50' cy='500' r='50'/%3E%3Cg fill='%238909b1' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%239109ba' cx='50' cy='600' r='50'/%3E%3Cg fill='%239a09c3' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a309cb' cx='50' cy='700' r='50'/%3E%3Cg fill='%23ad09d4' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b608dc' cx='50' cy='800' r='50'/%3E%3Cg fill='%23c007e5' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c905ee' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d303f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            */
+            background-image: url("../static/images/ola.svg");
+            background-size: cover;
+            font-family: "Roboto", sans-serif;
+            color: #3180a9;
+        }
+
+        h1 {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+        #texto1 {
+            display: none;
+            position: absolute;
+            top: 22%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+          }
+           #texto2{
+            display: none;
+            position: absolute;
+            top: 37%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+          }
+           #texto3 {
+            display: none;
+            position: absolute;
+            top: 56%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+          }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div style="display: flex; margin-top:30px;">
+            <h1>!Hasta la próxima!</h1>
+        </div>
+    </div>
+
+    <div id="texto1">Gracias por participar</div>
+    <div id="texto2">Te recordamos mirar el correo, a lo largo del día te enviaremos tu collage. </div>
+    <div id="texto3">Tu dibujo ya debería verse en pantalla</div>
+    <script>
+        var contador = 0;
+        var textos = ['#texto1', '#texto2', '#texto3'];
+
+        $(window).click(function() {
+            // Mostrar el siguiente texto
+            $(textos[contador]).fadeIn();
+
+            // Incrementar el contador
+            contador++;
+
+            // Si se han mostrado todos los textos, redirigir a otra URL
+            if (contador === textos.length+1) {
+                setTimeout(function() {
+                  window.location.href = "/pizarra";
+                }, 3000);
+              }
+        });
+    </script>
+
+    <script>
+        // Seleccionar el contenedor
+        const container = document.getElementById("container");
+
+        // Crear la animación con Anime.js
+        const animation = anime({
+            targets: container,
+            opacity: 1, // Cambiar la opacidad a 1 para hacer aparecer el contenido
+            duration: 1000, // Duración de la animación en milisegundos
+            easing: "easeInOutQuad", // Función de aceleración
+        });
+
+        // Esperar a que se cargue todo el contenido antes de comenzar la animación
+        window.onload = function () {
+            // Invertir la animación después de 1 segundo
+            setTimeout(function () {
+                animation.reverse(); // Invertir la animación
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>

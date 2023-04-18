@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'bootstrap5.html' %}
+    <!-- Bootstrap JS and jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.js"></script>
+  <title>Composición</title>
+  </head>
+<body>
+    {% include 'navbar.html' %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6 text-center">
+        <h1 class="fw-bold mb-4">Composición</h1>
+        <div class="list-group">
+          <a href="/composicion/ladrillo" class="list-group-item list-group-item-action bg-danger text-white">Ladrillo</a>
+          <a href="/composicion/mapa" class="list-group-item list-group-item-action bg-warning text-white">Mapa</a>
+          <a href="/composicion/estructurada" class="list-group-item list-group-item-action active">Estructurada</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Carga de los scripts JS de Bootstrap -->
+</body>
+</html>

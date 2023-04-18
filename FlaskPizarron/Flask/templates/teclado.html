@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
+  <input class="input" placeholder="Tap on the virtual keyboard to start" />
+  <div class="simple-keyboard" style="display:none"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+  <script>
+    const Keyboard = window.SimpleKeyboard.default;
+
+    const myKeyboard = new Keyboard({
+      onChange: input => onChange(input),
+      onKeyPress: button => onKeyPress(button)
+    });
+
+    const inputField = document.querySelector('.input');
+    const keyboardContainer = document.querySelector('.simple-keyboard');
+
+    inputField.addEventListener('focus', () => {
+      keyboardContainer.style.display = 'block';
+    });
+
+    //inputField.addEventListener('blur', () => {
+    //  keyboardContainer.style.display = 'none';
+    //});
+
+    function onChange(input) {
+      inputField.value = input;
+      console.log("Input changed", input);
+    }
+
+    function onKeyPress(button) {
+      console.log("Button pressed", button);
+    }
+  </script>
+</body>
+</html>

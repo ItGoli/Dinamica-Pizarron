@@ -1,0 +1,70 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.js"></script>
+<script>
+    // Función para establecer la cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Función para obtener el valor de la cookie
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Función para eliminar la cookie
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+
+    // Función para verificar si el usuario está autenticado
+    function isAuthenticated() {
+        var hashedPassword = getCookie('hashedPassword');
+        if (!hashedPassword || hashedPassword !== 'd2de0409e92e89d04c4bb49d799885a644fad21fe7d9dd7580894e2ca5360573') {
+            alert('Debe autenticarse para acceder a la página.');
+            //location.href = '/admin'; // Redirigir a la página de inicio de sesión
+            location.reload();
+            return false;
+        }
+        return true;
+    }
+
+    // Función para solicitar la contraseña al usuario
+    function requestPassword() {
+        var password = prompt('Por favor, ingrese su contraseña:');
+        console.log(password)
+        if (password) {
+            var hashedPassword = CryptoJS.SHA256(password).toString();
+            console.log(hashedPassword)
+            if (hashedPassword === 'd2de0409e92e89d04c4bb49d799885a644fad21fe7d9dd7580894e2ca5360573') {
+                setCookie('hashedPassword', hashedPassword, 365); // Establecer la cookie por un año
+            } else {
+                alert('Contraseña incorrecta, intente de nuevo.');
+                requestPassword(); // Volver a solicitar la contraseña
+            }
+        }
+    }
+
+    // Verificar si el usuario está autenticado
+    if (!isAuthenticated()) {
+        requestPassword();
+    }
+
+// Actualizar la página cada 10 segundos
+//setInterval(function() {
+//  location.reload();
+//}, 10000);
+
+</script>

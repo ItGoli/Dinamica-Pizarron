@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include 'bootstrap5.html' %}
+
+  <title>Admin</title>
+  {% include 'sha256.html' %}
+  <style>
+    .tam {
+      width: 128px;
+      height: 72px;
+    }
+
+    .position-relative {
+      position: relative;
+    }
+
+    .position-relative .dropdown {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    .dropdown-menu {
+      z-index: 3;
+    }
+
+    h1 {
+      color: white;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding-top: 30px;
+      font-size: xxx-large;
+    }
+
+    body {
+      background-color: #4e54c8;
+      font-family: 'Exo', sans-serif;
+    }
+  </style>
+
+<body>
+
+  <h1>Collage Pizarra</h1>
+
+  <div style="display: flex; width: 100%;">
+
+    <div style="display: grid; grid-template-columns: repeat(14, 1fr); grid-gap: 0;margin-left: 64px; ">
+
+
+      {% for file in files %}
+      <img class="tam" src="{{ url_for('static', filename='carpeta-img-1/' + file) }}" alt="{{ file }}"
+        data-bs-toggle="modal" data-bs-target="#exampleModal{{ loop.index }}">
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal{{ loop.index }}" tabindex="-1"
+        aria-labelledby="exampleModalLabel{{ loop.index }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel{{ loop.index }}">Administración de Imágenes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img class="tam" src="{{ url_for('static', filename='carpeta-img-1/' + file) }}" alt="{{ file }}"
+                style="display: flex; justify-content: center; width: 466px; height: 300px;">
+              <br>
+              <button class="btn btn-primary"
+                onclick="openImage('{{ url_for('static', filename='carpeta-img-1/' + file) }}')">Ver imagen en
+                grande</button>
+              <button type="button" class="btn btn-danger" id="borrar-imagen"
+                onclick="deleteImage('{{ file }}')">Borrar</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+
+
+
+    </div>
+
+  </div>
+  <form action="/capturar_imagen" method="POST" enctype="multipart/form-data">
+    <button type="submit">Capturar imagen</button>
+  </form>
+  <script>
+    function openImage(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+  <script>
+    function deleteImage(fileName) {
+
+      $.ajax({
+        url: '/borrar_imagen',
+        type: 'POST',
+        data: { data: fileName },
+        success: function (respuesta) {
+          alert(respuesta);
+        },
+        error: function () {
+          alert('Se produjo un error al guardar la imagen.');
+        }
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>
